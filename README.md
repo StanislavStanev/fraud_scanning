@@ -2,7 +2,7 @@
 
 ## Steps to start the app
 
-1. Clone the repo locally
+1. Download ZIP and extract folder
 2. Open the repo folder in Intellij IDEA Community. Both projects should be loaded and setup for work correctly automatically
 3. Open a terminal in the IDE
 4. Go to the fraud_scanning_service folder
