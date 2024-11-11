@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1731072726238-1
+      author: stanislavstanev (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: transactions_pkey
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: tran_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: amount
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: timestamp
+                  type: TIMESTAMP(2) WITHOUT TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: country
+                  type: VARCHAR
+              - column:
+                  constraints:
+                    nullable: false
+                  name: lat_coord
+                  type: numeric
+              - column:
+                  constraints:
+                    nullable: false
+                  name: long_coord
+                  type: numeric
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueDate: false
+                  name: is_fraudulent
+                  type: boolean
+            tableName: transactions
+  - changeSet:
+      id: 1731072726238-2
+      author: stanislavstanev (generated)
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: user_id
+            indexName: user_id_index
+            tableName: transactions

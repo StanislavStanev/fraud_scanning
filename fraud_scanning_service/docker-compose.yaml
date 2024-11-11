@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  postgres:
+    container_name: app_db
+    image: postgres:11-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: "fraud_scanning_service_db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      app-net:
+
+  liquibase:
+    depends_on:
+      - postgres
+    image: liquibase/liquibase:4.9.1
+    container_name: app_liquibase
+    volumes:
+      - ./database/liquibase:/liquibase/changelog
+#      - ./src/main/resources/db/changelog:/liquibase/changelog
+      # Command to run the liquibase update service
+#    command: --defaults-file=/liquibase/changelog/liquibase.properties update
+    command: liquibase --url="jdbc:postgresql://app_db:5432/fraud_scanning_service_db" --changeLogFile=./changelog/db.changelog-1.0.yml --username=postgres --password=postgres update
+    networks:
+      app-net:
+
+networks:
+  app-net:
+    driver: bridge
